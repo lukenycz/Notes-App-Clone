@@ -7,44 +7,63 @@
 
 import UIKit
 
-class noteModel: Codable {
-    var noteTitle: String
-    var noteBody: String
-    
-    init(noteTitle: String, noteBody: String) {
-        self.noteTitle = noteTitle
-        self.noteBody = noteBody
-    }
-}
+
 
 
 class ViewController: UITableViewController {
     
-    var noteModel: [noteModel]
+    var note = [noteModel]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
+        
+       // tableView.separatorColor = .none
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return noteModel.count
+        return note.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var isNoteModel = noteModel[indexPath.row]
+        let isNote = note[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = isNoteModel.noteTitle
+        cell.textLabel?.text = isNote.noteTitle
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        if let vc = storyboard?.instantiateViewController(identifier: "DetailVC") {
+            
+        present(vc, animated: true)
+        }
     }
     @objc func addNote() {
         
-    }
+        if let vc = storyboard?.instantiateViewController(identifier: "DetailVC") as? DetailViewController {
+            navigationController?.pushViewController(vc, animated: true)
+            
+        }
+//        let ac = UIAlertController(title: "Note Title:", message: nil, preferredStyle: .alert)
+//        ac.addTextField()
+//
+//        let submitAction = UIAlertAction(title: "Submit", style: .default) {
+//            [weak self, weak ac] action in
+//            guard let item = ac?.textFields?[0].text else { return }
+//            self?.submit(item)
+//        }
+//        ac.addAction(submitAction)
+//        present(ac, animated: true)
+//    }
+//    func submit(_ note:String) {
+//        let lowerItem = note.lowercased()
+//        noteModel.init(noteTitle: note, noteBody: "")
+//
+//        let indexPath = IndexPath(row: 0, section: 0)
+//        tableView.insertRows(at: [indexPath], with: .automatic)
+//    }
 
+    }
 }
 
