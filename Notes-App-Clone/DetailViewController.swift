@@ -10,10 +10,12 @@ import UIKit
 class DetailViewController: UIViewController {
 
     @IBOutlet var noteText: UITextView!
+
+    var noteBody:String = ""
     
-    var note = [noteModel]()
+    var valueNote: String = ""
     
-    var test = noteModel.self
+    var noteToArray = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +31,15 @@ class DetailViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     @objc func done() {
-        noteText.text = test.
-        
+        if let  vc = storyboard?.instantiateViewController(identifier: "ViewController") as? ViewController {
+            
+            let noteBody = noteModel(noteBody: "\(String(describing: noteText.text))")
+            let valueNote = noteBody.noteBody
+            noteToArray.append(valueNote)
+            vc.noteInTable = noteToArray
+            
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     @objc func backToVC(){

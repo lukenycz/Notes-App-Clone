@@ -8,11 +8,9 @@
 import Foundation
 
 class noteModel: Codable {
-    var noteTitle: String
     var noteBody: String
     
-        init(noteTitle: String, noteBody: String) {
-            self.noteTitle = noteTitle
+        init(noteBody: String) {
             self.noteBody = noteBody
         }
 }
