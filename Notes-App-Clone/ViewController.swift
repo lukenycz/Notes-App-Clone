@@ -11,9 +11,7 @@ import UIKit
 
 
 class ViewController: UITableViewController {
-    
-    var note = [noteModel]()
-    
+        
     var noteInTable = [String]() {
         didSet {
             tableView.reloadData()
@@ -33,15 +31,14 @@ class ViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let noteInfo = noteInTable[indexPath.row]
-            cell.textLabel?.text = noteInfo
-        
+        cell.textLabel?.text = noteInfo
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let vc = storyboard?.instantiateViewController(identifier: "DetailVC") as? DetailViewController? {
+        if let vc = storyboard?.instantiateViewController(identifier: "DetailVC") as? DetailViewController {
 
-            navigationController?.pushViewController(vc!, animated: true)
+            navigationController?.pushViewController(vc, animated: true)
                     }
     }
     @objc func addNote() {
